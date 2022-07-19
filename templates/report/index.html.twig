@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}Raport{% endblock %}
+{% block body %}
+<style>
+body table td, body table th{
+    border:#444444 1px solid;
+    padding:3px 10px;
+}
+
+body > table .first{
+    background:#222222;
+    color:#ffffff;
+}
+#form >div{
+    display: block;
+    overflow: hidden;
+}
+#form_datetimeFrom, #form_datetimeTo, #form label{
+    float:left;
+}
+.closer{
+    display:block;
+    float:left;
+    margin:0 5px;
+    cursor:pointer;
+    color:#444444;
+    clear:right;
+    font-family:Tahoma;
+}
+</style>
+<table>
+    <tr  class="first">
+        <td  colspan="2">Raport</td>
+    </tr>
+    <tr>
+        <td>
+          {{ form(form) }}
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Data</th>
+                    <th>Godzina</th>
+                    <th>Użytkownik</th>
+                    <th>Lokal</th>
+                </tr>
+                    {% for export in exports %}
+                            <tr>
+                                    <td>{{ export.getExportName|e }}</td>
+                                    <td>{{ export.getExportDatetime|date("Y-d-m") }}</td>
+                                    <td>{{ export.getExportDatetime|date("H:i:s") }}</td>
+                                    <td>{{ export.getUsername|e }}</td>
+                                    <td>{{ export.getLocalName|e}}</td>
+                            </tr>
+                    {% endfor %}
+            </table>
+
+        </td>
+    </tr>
+</table>
+{% endblock %}
